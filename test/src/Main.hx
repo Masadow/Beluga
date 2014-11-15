@@ -32,6 +32,7 @@ import modules.notification_test.NotificationTest;
 import modules.wallet_test.WalletTest;
 import modules.market_test.MarketTest;
 import modules.forum_test.ForumTest;
+import modules.social_test.SocialTest;
 import modules.news_test.NewsTest;
 import modules.mail_test.MailTest;
 import modules.faq_test.FaqTest;
@@ -68,6 +69,7 @@ class Main {
             ModuleTestApi.addModule("mailTest", new MailTest(beluga));
             ModuleTestApi.addModule("marketTest", new MarketTest(beluga));
             ModuleTestApi.addModule("faqTest", new FaqTest(beluga));
+            ModuleTestApi.addModule("socialTest", new SocialTest(beluga));
             
             if (!beluga.handleRequest()) {
                 Dispatch.run(beluga.getDispatchUri(), Web.getParams(), new Main());

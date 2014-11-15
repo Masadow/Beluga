@@ -1,0 +1,5 @@
+<div class="beluga social login" id="beluga_::_id::">
+    <a href="#facebookLogin" class="facebook btn btn-primary">Facebook</a>
+    <a href="#googleLogin" class="google btn btn-primary">Google</a>
+    <a href="#twitterLogin" class="twitter btn btn-primary">Twitter</a>
+</div>

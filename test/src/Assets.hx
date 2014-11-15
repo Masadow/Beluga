@@ -127,6 +127,9 @@ class Assets {
         //#----FaqTest Pages----#
         Context.addResource("page_faq", File.getBytes("src/modules/faq_test/tpl/faq_page.mtt"));
 
+        //#----SocialTest Pages----#
+        Context.addResource("social_page", File.getBytes("src/modules/social_test/tpl/socialWidget.mtt"));
+
         return macro null;
     }
 
