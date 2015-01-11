@@ -33,5 +33,9 @@ class User extends Object {
     public function setPassword(password : String) {
         hashPassword = haxe.crypto.Md5.encode(password);
     }
+    
+    public static function findOneByEmail(email : String) {
+        return User.manager.select($email == email);
+    }
 
 }

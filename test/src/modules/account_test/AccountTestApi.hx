@@ -14,6 +14,7 @@ import beluga.Beluga;
 import beluga.module.account.model.User;
 import beluga.module.account.Account;
 import beluga.module.account.AccountErrorKind;
+import beluga.module.social.Social;
 import modules.account_test.AccountTest;
 import main_view.Renderer;
 
@@ -24,12 +25,14 @@ import php.Web;
 class AccountTestApi {
     public var beluga(default, null) : Beluga;
     public var acc(default, null) : Account;
+    public var social(default, null) : Social;
     public var success_msg : String;
     public var error_msg : String;
 
     public function new(beluga : Beluga) {
         this.beluga = beluga;
         this.acc = beluga.getModuleInstance(Account);
+        this.social = beluga.getModuleInstance(Social);
 
         acc.triggers.deleteSuccess.add(this.deleteUserSuccess);
         acc.triggers.deleteFail.add(this.deleteUserFail);
@@ -61,16 +64,20 @@ class AccountTestApi {
 
     public function doLoginPage() {
         var loginWidget = acc.widgets.loginForm;
+        var socialLoginWidget = social.widgets.loginButtons;
         var html = Renderer.renderDefault("page_login", "Authentification", {
-            loginWidget: loginWidget.render()
+            loginWidget: loginWidget.render(),
+            socialLoginWidget: socialLoginWidget.render()
         });
         Sys.print(html);
     }
 
     public function doSubscribePage() {
         var subscribeWidget = acc.widgets.subscribeForm.render();
+        var socialLoginWidget = social.widgets.loginButtons;
         var html = Renderer.renderDefault("page_subscribe", "Inscription", {
-            subscribeWidget: subscribeWidget
+            subscribeWidget: subscribeWidget,
+            socialLoginWidget: socialLoginWidget.render()
         });
         Sys.print(html);
     }

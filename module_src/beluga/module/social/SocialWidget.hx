@@ -7,11 +7,13 @@
 // except according to those terms.
 
 package beluga.module.social;
+import beluga.module.social.widget.Init;
 import beluga.module.social.widget.LoginButtons;
 
 class SocialWidget
 {
     public var loginButtons = new LoginButtons();
+    public var init = new Init();
 
     public function new()
     {

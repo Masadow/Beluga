@@ -14,6 +14,7 @@ import haxe.web.Dispatch;
 import beluga.Beluga;
 import beluga.BelugaException;
 import beluga.module.social.Social;
+import haxe.Json;
 
 class SocialApi  {
     public var beluga : Beluga;
@@ -26,5 +27,14 @@ class SocialApi  {
 
     public function doDefault() {
 //        this.module.triggers.defaultPage.dispatch();
+        Beluga.redirect('/'); //There is no default route to this API
+    }
+    
+    public function doFacebook(args : {
+        formdata : String
+    }) {
+        //Facebook login callback
+        module.connect(Json.parse(args.formdata));
+        Beluga.redirect("/");
     }
 }

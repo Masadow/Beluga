@@ -1,5 +1,5 @@
 <div class="beluga social login" id="beluga_::_id::">
-    <a href="#facebookLogin" class="facebook btn btn-primary">Facebook</a>
+    <fb:login-button scope="::fb.scope::" onlogin="checkLoginState();"></fb:login-button>
     <a href="#googleLogin" class="google btn btn-primary">Google</a>
     <a href="#twitterLogin" class="twitter btn btn-primary">Twitter</a>
 </div>

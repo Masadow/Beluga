@@ -3,6 +3,7 @@ package modules.social_test;
 import beluga.Beluga;
 import beluga.module.social.Social;
 import main_view.Renderer;
+import haxe.web.Request;
 
 /**
  * ...
@@ -23,9 +24,5 @@ class SocialTest
             socialWidget: social.widgets.loginButtons.render()
         });
         Sys.print(html);
-    }
-
-    public function doLogin() {
-        doDefault();
     }
 }

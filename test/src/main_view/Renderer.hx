@@ -15,6 +15,7 @@ import beluga.module.account.Account;
 import beluga.Beluga;
 import beluga.resource.JavascriptBuilder;
 import beluga.resource.CssBuilder;
+import beluga.module.social.Social;
 
 class Renderer {
 
@@ -44,7 +45,8 @@ class Renderer {
             content: templatelayout,
             title: title,
             js: JavascriptBuilder.getHtmlInclude(),
-            css: CssBuilder.getHtmlInclude()
+            css: CssBuilder.getHtmlInclude(),
+            social_init: Beluga.getInstance().getModuleInstance(Social).widgets.init.render()
         });
         return bodyhtml;
     }

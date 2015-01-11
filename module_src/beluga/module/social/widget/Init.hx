@@ -12,6 +12,7 @@ import beluga.Beluga;
 import beluga.widget.MttWidget;
 import beluga.ConfigLoader;
 import beluga.module.social.Social;
+import beluga.module.social.SocialConfig;
 import beluga.tool.JsonTool;
 import beluga.I18n;
 import beluga.tool.DynamicTool;
@@ -19,17 +20,15 @@ import beluga.resource.ResourceManager;
 import beluga.module.account.Account;
 import beluga.widget.Layout;
 
-class LoginButtons extends MttWidget<Social> {
+class Init extends MttWidget<Social> {
 
     public function new (?mttfile : Layout) {
-        if(mttfile == null) mttfile = MttWidget.bootstrap.wrap("/beluga/module/social/view/tpl/login.mtt");
+        if(mttfile == null) mttfile = MttWidget.bootstrap.wrap("/beluga/module/social/view/tpl/init.mtt");
         super(Social, mttfile);
         i18n = mod.i18n;
     }
 
     override private function getContext(): Dynamic {
-        var context = SocialConfig.get();
-        context.isLogged = Beluga.getInstance().getModuleInstance(Account).isLogged;
-        return context;
+        return SocialConfig.get();
     }
 }

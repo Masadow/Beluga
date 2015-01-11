@@ -1,0 +1,31 @@
+<div id="fb-root"></div>
+<form id="fb-callback" method="POST" action="::fb.callback_url::"><input id="fb-callback-formdata" type="hidden" name="formdata" /></form>
+<script><!-- Native js needed since there is no port of the Facebook SDK in Haxe -->
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                FB.api('/me', function(me) {
+                    document.getElementById("fb-callback-formdata").value = JSON.stringify(me);
+                    document.forms['fb-callback'].submit();
+                });
+            }
+        });
+      }
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : ::fb.id::,
+          cookie     : ::fb.cookie::,
+          xfbml      : true,
+          version    : 'v2.2'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+</script>

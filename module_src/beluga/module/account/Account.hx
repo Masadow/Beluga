@@ -82,7 +82,7 @@ class Account extends Module {
     public function login(args : {
         login : String,
         password : String
-    }) {
+    }, passwordCheck = true) {
 
         var user : List<User> = User.manager.dynamicSearch({login : args.login});
         if (user.length > 1) {
@@ -116,13 +116,20 @@ class Account extends Module {
         var user : List<User> = User.manager.dynamicSearch( { login: login } );
         return user.length == 0;
     }
+    
+    public function randomPassword(length : Int = 8, charset : String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~") : String {
+        var p = "";
+        for (i in 0...length)
+            p += charset.charAt(Std.random(charset.length));
+        return p;
+    }
 
     public function subscribe(args : {
         login : String,
         password : String,
         password_conf : String,
         email : String
-    }) {
+    }, trigger = true) {
         var validations = {
             login: {
                 mandatory: Validator.notEmpty(args.login),
@@ -155,8 +162,9 @@ class Account extends Module {
             user.isBan = false;
             user.insert();
             //TODO AB Send activation mail
-            triggers.subscribeSuccess.dispatch({user: user});
-        } else {
+            if (trigger)
+                triggers.subscribeSuccess.dispatch({user: user});
+        } else if (trigger) {
             lastSubscribeError = validations;
             triggers.subscribeFail.dispatch({validations : validations});
         }

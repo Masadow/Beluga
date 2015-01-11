@@ -23,6 +23,10 @@ import beluga.api.BelugaApi;
 import beluga.module.social.js.Javascript;
 import beluga.module.social.api.SocialApi;
 
+//Module dependencies
+import beluga.module.account.Account;
+import beluga.module.account.model.User;
+
 @:Css("/beluga/module/account/view/css/")
 class Social extends Module {
 
@@ -30,6 +34,8 @@ class Social extends Module {
     public var widgets : SocialWidget;
 
     public var i18n = BelugaI18n.loadI18nFolder("/beluga/module/social/local/");
+    
+    private var acc : Account;
 
     public function new() {
         super();
@@ -38,6 +44,25 @@ class Social extends Module {
     override public function initialize(beluga : Beluga) {
         this.widgets = new SocialWidget();
         beluga.api.register("social", new SocialApi(beluga, this));
+        acc = beluga.getModuleInstance(Account);
+    }
+    
+    public function connect(user : Dynamic) {
+        if (Reflect.hasField(user, "email")) {
+            var usr = User.findOneByEmail(user.email);
+            var pwd = acc.randomPassword();
+            if (usr == null) {
+                //Create account
+                acc.subscribe( {
+                    login: user.email,
+                    password: pwd,
+                    password_conf: pwd,
+                    email: user.email
+                }, false);
+            }
+            //login
+            acc.login({login: user.email, password: pwd}, false);
+        }
     }
 
 }
